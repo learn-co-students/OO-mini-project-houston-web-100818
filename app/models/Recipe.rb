@@ -34,9 +34,7 @@ def users
 end
 
 def ingredients
-  var = RecipeIngredient.all.select do |a|
-    a.recipe == self
-  end
+  var = RecipeIngredient.all.select {|a| a.recipe == self}
   var.collect {|i| i.ingredient}
 end
 

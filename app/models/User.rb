@@ -39,9 +39,10 @@ class User
     self.recipes.last
   end 
   
-  # def safe_recipes
-    
-  #   rec.reject{|r| r.ingredient }
-  # end 
+  def safe_recipes
+    re = Recipe.all.select do |recipe|
+      recipe.ingredients
+    end
+  end 
 
 end
