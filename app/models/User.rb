@@ -54,20 +54,27 @@ class User
         my_recipes.sort_by{|recipe| recipe.date}.reverse[0]
     end
 
+    # def safe_recipes
+    #     safe_array = []
+    #     my_recipes = RecipeCard.all.select do | recipeCard |
+    #         recipeCard.user == self
+    #     end
+    #     array_of_recipes = my_recipes.map do | recipecard |
+    #         recipecard.recipe
+    #     end
+    #     array_of_recipes.each do | recipe |
+    #         if recipe.allergens = nil
+    #             safe_array << recipe
+    #         end
+    #     end
+    #     safe_array
+    # end
+
     def safe_recipes
-        safe_array = []
-        my_recipes = RecipeCard.all.select do | recipeCard |
-            recipeCard.user == self
+        Recipe.all.select do | recipe |
+            allergic_ingredients = (recipe.ingredients & self.allergen_ingredients)
+            allergic_ingredients.length == 0
         end
-        array_of_recipes = my_recipes.map do | recipecard |
-            recipecard.recipe
-        end
-        array_of_recipes.each do | recipe |
-            if recipe.allergens = nil
-                safe_array << recipe
-            end
-        end
-        safe_array
     end
 
 end
